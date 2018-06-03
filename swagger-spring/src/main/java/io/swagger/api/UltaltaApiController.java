@@ -35,7 +35,7 @@ public class UltaltaApiController implements UltaltaApi {
     }
 
     public ResponseEntity<String> addUltalta(@ApiParam(value = "Codigo partenon único" ,required=true )  @Valid @RequestBody Ultalta ultalta) {
-    	
+    	System.out.println("Nueva llamada");
     	String result = "{ \"ultalta\" : " + "\"" +random.nextString() + "\"}";
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/xml")) {
