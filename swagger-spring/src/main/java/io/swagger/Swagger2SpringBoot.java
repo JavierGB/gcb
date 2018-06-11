@@ -5,12 +5,17 @@ import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
+import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
+import io.swagger.configuration.ElasticsearchConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
 @ComponentScan(basePackages = { "io.swagger", "io.swagger.api" })
+@EnableElasticsearchRepositories(basePackages = "com.isban.elastic")
+@Import(ElasticsearchConfiguration.class)
 public class Swagger2SpringBoot implements CommandLineRunner {
 
     @Override

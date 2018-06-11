@@ -1,134 +1,156 @@
 package io.swagger.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.UUID;
+
+import javax.validation.constraints.NotNull;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Ultalta
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-06-02T16:33:50.882Z")
-
+@Document(indexName = "gcb", type = "ultalta" , createIndex = true)
 public class Ultalta   {
-  @JsonProperty("empresa")
-  private String empresa = null;
 
-  @JsonProperty("centro")
-  private String centro = null;
-
-  @JsonProperty("producto")
-  private String producto = null;
-
-  public Ultalta empresa(String empresa) {
-    this.empresa = empresa;
-    return this;
-  }
-
-  /**
-   * Get empresa
-   * @return empresa
-  **/
-  @ApiModelProperty(example = "0049", required = true, value = "")
-  @NotNull
+	@Id
+	@JsonIgnore
+	private String id;
 
 
-  public String getEmpresa() {
-    return empresa;
-  }
+	@JsonProperty("empresa")
+	private String empresa = null;
 
-  public void setEmpresa(String empresa) {
-    this.empresa = empresa;
-  }
+	@JsonProperty("centro")
+	private String centro = null;
 
-  public Ultalta centro(String centro) {
-    this.centro = centro;
-    return this;
-  }
+	@JsonProperty("producto")
+	private String producto = null;
 
-  /**
-   * Get centro
-   * @return centro
-  **/
-  @ApiModelProperty(example = "1999", required = true, value = "")
-  @NotNull
+	public Ultalta empresa(String empresa) {
+		this.empresa = empresa;
+		return this;
+	}
 
-
-  public String getCentro() {
-    return centro;
-  }
-
-  public void setCentro(String centro) {
-    this.centro = centro;
-  }
-
-  public Ultalta producto(String producto) {
-    this.producto = producto;
-    return this;
-  }
-
-  /**
-   * Get producto
-   * @return producto
-  **/
-  @ApiModelProperty(example = "480", required = true, value = "")
-  @NotNull
+	/**
+	 * Get empresa
+	 * @return empresa
+	 **/
+	@ApiModelProperty(example = "0049", required = true, value = "")
+	@NotNull
 
 
-  public String getProducto() {
-    return producto;
-  }
+	public String getEmpresa() {
+		return empresa;
+	}
 
-  public void setProducto(String producto) {
-    this.producto = producto;
-  }
+	public void setEmpresa(String empresa) {
+		this.empresa = empresa;
+	}
+
+	public Ultalta centro(String centro) {
+		this.centro = centro;
+		return this;
+	}
+
+	/**
+	 * Get centro
+	 * @return centro
+	 **/
+	@ApiModelProperty(example = "1999", required = true, value = "")
+	@NotNull
 
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Ultalta ultalta = (Ultalta) o;
-    return Objects.equals(this.empresa, ultalta.empresa) &&
-        Objects.equals(this.centro, ultalta.centro) &&
-        Objects.equals(this.producto, ultalta.producto);
-  }
+	public String getCentro() {
+		return centro;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(empresa, centro, producto);
-  }
+	public void setCentro(String centro) {
+		this.centro = centro;
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Ultalta {\n");
-    
-    sb.append("    empresa: ").append(toIndentedString(empresa)).append("\n");
-    sb.append("    centro: ").append(toIndentedString(centro)).append("\n");
-    sb.append("    producto: ").append(toIndentedString(producto)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+	public Ultalta producto(String producto) {
+		this.producto = producto;
+		return this;
+	}
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	/**
+	 * Get producto
+	 * @return producto
+	 **/
+	@ApiModelProperty(example = "480", required = true, value = "")
+	@NotNull
+
+
+	public String getProducto() {
+		return producto;
+	}
+
+	public void setProducto(String producto) {
+		this.producto = producto;
+	}
+
+
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		Ultalta ultalta = (Ultalta) o;
+		return Objects.equals(this.empresa, ultalta.empresa) &&
+				Objects.equals(this.centro, ultalta.centro) &&
+				Objects.equals(this.producto, ultalta.producto);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(empresa, centro, producto);
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class Ultalta {\n");
+
+		sb.append("    empresa: ").append(toIndentedString(empresa)).append("\n");
+		sb.append("    centro: ").append(toIndentedString(centro)).append("\n");
+		sb.append("    producto: ").append(toIndentedString(producto)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	
+	
 }
 

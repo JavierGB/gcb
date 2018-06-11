@@ -5,6 +5,8 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.isban.elastic.UltaltaRepository;
 
 import io.swagger.RandomUltalta;
 import io.swagger.annotations.ApiParam;
@@ -30,21 +33,39 @@ public class UltaltaApiController implements UltaltaApi {
 
     private final HttpServletRequest request;
 
+    @Autowired
+    private UltaltaRepository repository;
+    
+    
     @org.springframework.beans.factory.annotation.Autowired
     public UltaltaApiController(ObjectMapper objectMapper, HttpServletRequest request) {
         this.objectMapper = objectMapper;
         this.request = request;
     }
 
+    @Autowired
+    private ElasticsearchOperations ElasticsearchOperations;
+    
     public ResponseEntity<String> addUltalta(@ApiParam(value = "Codigo partenon único" ,required=true )  @Valid @RequestBody Ultalta ultalta) {
-    	
-    	String result = "{ \"ultalta\" : " + "\"" +random.nextString() + "\"}";
+    	String r = random.nextString();
+    	String result = "{ \"ultalta\" : " + "\"" + r + "\"}";
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/xml")) {
             return new ResponseEntity<String>(result, HttpStatus.OK);
         }
 
         if (accept != null && accept.contains("application/json")) {
+        	
+        	ultalta.setId(r);
+        	repository.save(ultalta);
+        	
+//        	for (int i = 0; i < 100000; i++) {
+//        		r = random.nextString();
+//        		ultalta.setId(r);
+//        		repository.save(ultalta);
+//			}
+        	repository.findAll();
+        	
             return new ResponseEntity<String>(result, HttpStatus.OK);
         }
 
