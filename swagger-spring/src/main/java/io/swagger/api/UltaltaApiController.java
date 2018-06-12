@@ -105,7 +105,9 @@ public class UltaltaApiController implements UltaltaApi {
             try {
             	
             	Ultalta contrato = repository.findOne(ultaltaId);
-            	
+            	if(contrato == null){
+            		return new ResponseEntity<Ultalta>(HttpStatus.NOT_FOUND);
+            	}
                 return new ResponseEntity<Ultalta>(contrato, HttpStatus.OK);
             } catch (Exception e) {
                 return new ResponseEntity<Ultalta>(HttpStatus.NOT_FOUND);
