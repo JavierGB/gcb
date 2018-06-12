@@ -5,36 +5,46 @@
  */
 package io.swagger.api;
 
-import io.swagger.model.Ultalta;
-import io.swagger.annotations.*;
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-import java.util.List;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.model.Ultalta;
+import io.swagger.model.UltaltaResponse;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-06-02T16:33:50.882Z")
 
 @Api(value = "ultalta", description = "the ultalta API")
 public interface UltaltaApi {
 
-    @ApiOperation(value = "Crear un nuevo identificador partenon único", nickname = "addUltalta", notes = "", response = String.class, tags={ "ultalta", })
+    @ApiOperation(value = "Crea un nuevo contrato partenon", nickname = "addUltalta", notes = "", response = UltaltaResponse.class, tags={ "Ultalta", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Creado", response = String.class),
-        @ApiResponse(code = 401, message = "No permitido"),
-        @ApiResponse(code = 405, message = "Cuerpo del mensaje incorrecto") })
+        @ApiResponse(code = 200, message = "Creado", response = UltaltaResponse.class),
+        @ApiResponse(code = 401, message = "No autorizado"),
+        @ApiResponse(code = 405, message = "Petición incorrecta") })
     @RequestMapping(value = "/ultalta",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    ResponseEntity<String> addUltalta(@ApiParam(value = "Codigo partenon único" ,required=true )  @Valid @RequestBody Ultalta ultalta);
+    ResponseEntity<UltaltaResponse> addUltalta(@ApiParam(value = "Empresa , centro y producto asociados al nuevo contrato" ,required=true )  @Valid @RequestBody Ultalta body);
+
+
+    @ApiOperation(value = "Recupera empresa, centro y producto asociados a un contrato", nickname = "getUltaltaById", notes = "", response = Ultalta.class, tags={ "Ultalta", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "OK", response = Ultalta.class),
+        @ApiResponse(code = 400, message = "ID inválido"),
+        @ApiResponse(code = 404, message = "Contrato no encontrado") })
+    @RequestMapping(value = "/ultalta/{ultaltaId}",
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
+    ResponseEntity<Ultalta> getUltaltaById(@ApiParam(value = "contrato partenon",required=true) @PathVariable("ultaltaId") String ultaltaId);
 
 }
